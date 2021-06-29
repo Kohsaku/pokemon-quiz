@@ -17,7 +17,7 @@ class App extends React.Component {
       answersCount: {},
       result: 0,
       correct: 0,
-
+      yourAnswer: []
     }
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
     this.handleReset = this.handleReset.bind(this);
@@ -32,7 +32,8 @@ class App extends React.Component {
 
     this.setState({
       question: shuffledQuestion[counter].question,
-      answerOptions: shuffledAnswerOptions[counter]
+      answerOptions: shuffledAnswerOptions[counter],
+      log: shuffledQuestion
     });
     console.log(shuffledQuestion);
   }
@@ -73,15 +74,8 @@ class App extends React.Component {
   }
 
   setUserAnswer(answer) {
-    this.setState(state => ({
-      answersCount: {
-        ...state.answersCount,
-        [answer]: (state.answersCount[answer] || 0) + 1
-      },
-      answer: answer
-    }));
-    console.log(this.state.answersCount);
     const counter = this.state.counter;
+    this.setState({yourAnswer: answer});
     if (answer === quizQuestions[counter].correct.type) {
       this.setState((state) => ({
         correct: state.correct + 1
