@@ -2,6 +2,13 @@ import React from 'react';
 import quizQuestions from './components/quizQuestion';
 import Quiz from './components/Quiz';
 import Result from './components/Result'
+import TopPage from './components/TopPage';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom';
 
 import './App.css';
 
@@ -18,7 +25,8 @@ class App extends React.Component {
       result: 0,
       correct: 0,
       yourAnswer: [],
-      log:[]
+      log:[],
+      numberOfQuestion: 0
     }
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
     this.handleReset = this.handleReset.bind(this);
@@ -176,14 +184,23 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <h2>Pokemon Quiz</h2>
+      <Router>
+        <div className="App">
+          <div className="App-header">
+            <h2>Pokemon Quiz</h2>
+          </div>
+          <Switch>
+            <Route exact path="/">
+              <TopPage numbers={[3, 5, 6]}/>
+            </Route>
+            <Route path="/quiz">
+              <div className="App-body">
+                {this.state.result ? this.renderResult() : this.renderQuiz()}
+              </div>
+            </Route>
+          </Switch>
         </div>
-        <div className="App-body">
-          {this.state.result ? this.renderResult() : this.renderQuiz()}
-        </div>
-      </div>
+      </Router>
     );
   }
 }
