@@ -17,7 +17,8 @@ class App extends React.Component {
       answersCount: {},
       result: 0,
       correct: 0,
-      yourAnswer: []
+      yourAnswer: [],
+      log:[]
     }
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
     this.handleReset = this.handleReset.bind(this);
@@ -35,7 +36,6 @@ class App extends React.Component {
       answerOptions: shuffledAnswerOptions[counter],
       log: shuffledQuestion
     });
-    console.log(shuffledQuestion);
   }
 
 
@@ -69,23 +69,37 @@ class App extends React.Component {
     if (this.state.questionId < quizQuestions.length) {
       setTimeout(() => this.setNextQuestion(), 300);
     } else {
-      setTimeout(() => this.setResults(this.getResults()), 300);
+      setTimeout(() => this.setResults(this.getResults(), this.getLog()), 300);
     }
   }
 
   setUserAnswer(answer) {
     const counter = this.state.counter;
-    this.setState({yourAnswer: answer});
-    if (answer === quizQuestions[counter].correct.type) {
+    const answerOptions = this.state.answerOptions;
+    const yourAnswer = this.state.yourAnswer;
+
+    if (answer === quizQuestions[counter].correct[0]) {
       this.setState((state) => ({
         correct: state.correct + 1
       }));
     }
+
+    console.log(answer);
+    for (let i = 0; i < answerOptions.length; i++) {
+      if (answer === answerOptions[i].type) {
+        let selectedAnswer = answerOptions[i].content;
+        yourAnswer.push(selectedAnswer);
+      } else {
+        continue;
+      }
+    }
+    this.setState({yourAnswer: yourAnswer});
   }
 
   setNextQuestion() {
     const counter = this.state.counter + 1;
     const questionId = this.state.questionId + 1;
+
     this.setState({
       counter: counter,
       questionId: questionId,
@@ -100,8 +114,20 @@ class App extends React.Component {
     return correct;
   }
 
-  setResults(result) {
+  getLog() {
+    const log = this.state.log;
+    const yourAnswer = this.state.yourAnswer;
+
+    for (let i = 0; i < yourAnswer.length; i++) {
+      log[i].yourAnswer = yourAnswer[i];
+    }
+    return log;
+  }
+
+  setResults(result, log) {
+    console.log(log);
     this.setState({result: result});
+    this.setState({log: log});
   }
 
   renderQuiz() {
@@ -119,11 +145,15 @@ class App extends React.Component {
 
   renderResult() {
     return (
-      <Result counter={this.state.counter + 1} quizResult={this.state.result} handleSubmit={this.handleReset}/>
+      <Result 
+        counter={this.state.counter + 1} 
+        quizResult={this.state.result}
+        log={this.state.log}
+        handleSubmit={this.handleReset}/>
     );
   }
 
-  handleReset() {
+  handleReset(event) {
     const shuffledQuestion = this.shuffleQuizQuestions(quizQuestions);
     const shuffledAnswerOptions = shuffledQuestion.map(question => this.shuffleArray(question.answers));
 
@@ -135,10 +165,13 @@ class App extends React.Component {
       answer: '',
       answersCount: {},
       result: 0,
-      correct: 0
+      correct: 0,
+      yourAnswer: [],
+      log: shuffledQuestion
     });
 
     console.log(shuffledQuestion);
+    event.preventDefault();
   }
 
   render() {

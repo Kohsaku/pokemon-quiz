@@ -19,7 +19,7 @@ var quizQuestions = [
                 content: "サイドチェンジ"
             }
         ],
-        correct: {type: '4', content: "サイドチェンジ"}
+        correct: ['4', "サイドチェンジ"]
     },
     {
         question: "次のうちHPを回復するきのみはどれ？",
@@ -41,7 +41,7 @@ var quizQuestions = [
                 content: "カゴのみ"
             }
         ],
-        correct: {type: '1', content: "イアのみ"}
+        correct: ['1', "イアのみ"]
     },
     {
         question: "次のうち最もすばやさ種族値の高いポケモンはだれ？",
@@ -63,7 +63,7 @@ var quizQuestions = [
                 content: "ガオガエン"
             },
         ],
-        correct: {type: '2', content: "メタグロス"}
+        correct: ['2', "メタグロス"]
     },
     {
         question: "次のうち最もぼうぎょ種族値の高いポケモンはだれ？",
@@ -85,7 +85,7 @@ var quizQuestions = [
                 content: "アーマーガア"
             },
         ],
-        correct: {type: '3', content: "クレセリア"}
+        correct: ['3', "クレセリア"]
     }
   ];
   

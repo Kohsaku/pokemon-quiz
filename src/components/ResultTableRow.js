@@ -1,9 +1,11 @@
 import React from 'react';
 
-const ResultTableRow = (props, Answer) => (
-    <tr>
-      <td>{props.quizQuestion.question}</td>
-      <td>{Answer[props.quizQuestion.length - 1]}</td>
-      <td>{props.quizQuestion.correct.content}</td>
+const ResultTableRow = props => (
+    <tr　key={props.key}>
+      <td>{props.log.question}</td>
+      <td>{props.log.yourAnswer}</td>
+      <td>{props.log.correct[1]}</td>
     </tr>
 );
+
+export default ResultTableRow;
