@@ -42,6 +42,19 @@ body {
   padding: 1.5rem 2.5rem;
 }
 
+/* ResultTable Component */
+.resultTable {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5%;
+  width: 100%;
+  table-layout: auto;
+}
+
+.resultTable thead{
+  color: #273c75;
+}
+
 /* Quiz Component */
 .answerOptions {
   margin: 0;
