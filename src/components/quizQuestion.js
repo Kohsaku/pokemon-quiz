@@ -66,6 +66,28 @@ var quizQuestions = [
         correct: ['2', "メタグロス"]
     },
     {
+        question: "次のうちとくせい「ふゆう」をもたないポケモンはだれ？",
+        answers: [
+            {
+                type: '1',
+                content: "フライゴン"
+            },
+            {
+                type: '2',
+                content: "ロトム"
+            },
+            {
+                type: '3',
+                content: "ギギギアル"
+            },
+            {
+                type: '4',
+                content: "ドータクン"
+            },
+        ],
+        correct: ['3', "ギギギアル"]
+    },
+    {
         question: "次のうち最もぼうぎょ種族値の高いポケモンはだれ？",
         answers: [
             {
@@ -86,7 +108,29 @@ var quizQuestions = [
             },
         ],
         correct: ['3', "クレセリア"]
-    }
+    },
+    {
+        question: "次のうち「トリックルーム」をおぼえるポケモンはだれ？",
+        answers: [
+            {
+                type: '1',
+                content: "メタグロス"
+            },
+            {
+                type: '2',
+                content: "イエッサン♀"
+            },
+            {
+                type: '3',
+                content: "ヤミラミ"
+            },
+            {
+                type: '4',
+                content: "イエッサン♂"
+            },
+        ],
+        correct: ['4', "イエッサン♂"]
+    },
   ];
   
   export default quizQuestions;
