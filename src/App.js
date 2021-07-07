@@ -164,7 +164,6 @@ class App extends React.Component {
         counter={this.state.counter + 1} 
         quizResult={this.state.result}
         log={this.state.log}
-        
         handleSubmit={this.handleReset}/>
     );
   }
