@@ -9,7 +9,7 @@ const ResultTable = props => (
       <th>正解</th>
     </thead>
     <tbody>
-      {props.log.map(log => <ResultTableRow log={log} />)}
+      {props.log.slice(0, props.counter).map(slicedLog => <ResultTableRow log={slicedLog} />)}
     </tbody>
   </table>
 );

@@ -26,8 +26,9 @@ class App extends React.Component {
       correct: 0,
       yourAnswer: [],
       log:[],
-      numberOfQuestion: 0
+      numberOfQuestion: 3
     }
+    this.handleNumberChange = this.handleNumberChange.bind(this);
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
     this.handleReset = this.handleReset.bind(this);
   }
@@ -72,9 +73,15 @@ class App extends React.Component {
     return array;
   }
 
+  handleNumberChange(event) {
+    this.setState({numberOfQuestion: event.target.value});
+    console.log(event.target.value);
+  }
+
   handleAnswerSelected(event) {
+    const numberOfQuestion = this.state.numberOfQuestion;
     this.setUserAnswer(event.currentTarget.value);
-    if (this.state.questionId < quizQuestions.length) {
+    if (this.state.questionId < numberOfQuestion) {
       setTimeout(() => this.setNextQuestion(), 300);
     } else {
       setTimeout(() => this.setResults(this.getResults(), this.getLog()), 300);
@@ -145,7 +152,7 @@ class App extends React.Component {
         answerOptions={this.state.answerOptions}
         questionId={this.state.questionId}
         question={this.state.question}
-        questionTotal={quizQuestions.length}
+        questionTotal={this.state.numberOfQuestion}
         onAnswerSelected={this.handleAnswerSelected}
       />
     );
@@ -157,6 +164,7 @@ class App extends React.Component {
         counter={this.state.counter + 1} 
         quizResult={this.state.result}
         log={this.state.log}
+        
         handleSubmit={this.handleReset}/>
     );
   }
@@ -191,7 +199,7 @@ class App extends React.Component {
           </div>
           <Switch>
             <Route exact path="/">
-              <TopPage numbers={[3, 5, 6]}/>
+              <TopPage numbers={[3, 5, 6]} onChange={this.handleNumberChange} />
             </Route>
             <Route path="/quiz">
               <div className="App-body">
