@@ -5,9 +5,9 @@ import Result from './components/Result'
 import TopPage from './components/TopPage';
 
 import {
-  BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  withRouter
 } from 'react-router-dom';
 
 import './App.css';
@@ -185,13 +185,14 @@ class App extends React.Component {
       log: shuffledQuestion
     });
 
+    this.props.history.push('/');
+
     console.log(shuffledQuestion);
     event.preventDefault();
   }
 
   render() {
     return (
-      <Router>
         <div className="App">
           <div className="App-header">
             <h2>Pokemon Quiz</h2>
@@ -207,9 +208,8 @@ class App extends React.Component {
             </Route>
           </Switch>
         </div>
-      </Router>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
