@@ -1,8 +1,13 @@
 import React from 'react';
 import quizQuestions from './components/quizQuestion';
 import Quiz from './components/Quiz';
-import Result from './components/Result'
+import Result from './components/Result';
 import TopPage from './components/TopPage';
+
+import Header from './components/Header';
+import LoginPage from './components/LoginPage';
+import HistoryPage from './components/HistoryPage';
+import SignupPage from './components/SignupPage';
 
 import {
   Switch,
@@ -11,6 +16,7 @@ import {
 } from 'react-router-dom';
 
 import './App.css';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -194,9 +200,7 @@ class App extends React.Component {
   render() {
     return (
         <div className="App">
-          <div className="App-header">
-            <h2>Pokemon Quiz</h2>
-          </div>
+          <Header />
           <Switch>
             <Route exact path="/">
               <TopPage numbers={[3, 5, 6]} onChange={this.handleNumberChange} />
@@ -205,6 +209,15 @@ class App extends React.Component {
               <div className="App-body">
                 {this.state.result ? this.renderResult() : this.renderQuiz()}
               </div>
+            </Route>
+            <Route path="/login">
+              <LoginPage />
+            </Route>
+            <Route path="/signup">
+              <SignupPage />
+            </Route>
+            <Route path="/history">
+              <HistoryPage />
             </Route>
           </Switch>
         </div>
