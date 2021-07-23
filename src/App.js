@@ -7,6 +7,7 @@ import TopPage from './components/TopPage';
 import Header from './components/Header';
 import LoginPage from './components/LoginPage';
 import HistoryPage from './components/HistoryPage';
+import SignupPage from './components/SignupPage';
 
 import {
   Switch,
@@ -211,6 +212,9 @@ class App extends React.Component {
             </Route>
             <Route path="/login">
               <LoginPage />
+            </Route>
+            <Route path="/signup">
+              <SignupPage />
             </Route>
             <Route path="/history">
               <HistoryPage />
