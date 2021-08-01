@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { auth } from '../api/firebase';
+import { auth, createUserProfileDocument } from '../api/firebase';
 import CustomButton from './customButton';
 import { useHistory } from 'react-router-dom';
 
@@ -17,12 +17,16 @@ const SignupPage = () => {
       alert("passwords don't match");
       return;
     } 
-    
+
     try {
-      await auth.createUserWithEmailAndPassword(
+      const { user } = await auth.createUserWithEmailAndPassword(
         email,
         password
       );
+
+      console.log(user);
+
+      await createUserProfileDocument(user, { displayName });
 
       setDisplayName('');
       setEmail('');
