@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import CustomButton from './customButton';
-import { auth } from '../api/firebase';
+import { auth, signInWithGoogle } from '../api/firebase';
 import { useHistory } from 'react-router-dom';
 
 const LoginPage = () => {
@@ -58,7 +58,7 @@ const LoginPage = () => {
         </label>
         <div>
           <CustomButton label="ログイン" />
-          <button>Google SignIn</button>
+          <button onClick={signInWithGoogle}>Google SignIn</button>
         </div>
       </form>
     </div>

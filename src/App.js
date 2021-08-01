@@ -15,6 +15,8 @@ import {
   withRouter
 } from 'react-router-dom';
 
+import { auth } from './api/firebase';
+
 import './App.css';
 
 
@@ -197,10 +199,16 @@ class App extends React.Component {
     event.preventDefault();
   }
 
+  handleSignOut() {
+    auth.signOut().then(() => {
+      console.log('sign out successfuly');
+    })
+  }
+
   render() {
     return (
         <div className="App">
-          <Header />
+          <Header handleSignOut={this.handleSignOut} />
           <Switch>
             <Route exact path="/">
               <TopPage numbers={[3, 5, 6]} onChange={this.handleNumberChange} />
