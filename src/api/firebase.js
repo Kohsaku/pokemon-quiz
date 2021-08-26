@@ -3,7 +3,12 @@ import 'firebase/auth';
 import 'firebase/firestore';
 
 const firebaseConfig = {
-
+    apiKey: "AIzaSyACPKokPEYRgvTGvcTRXANzhc8WTvXMu1Q",
+    authDomain: "pokemon-quiz-7a302.firebaseapp.com",
+    projectId: "pokemon-quiz-7a302",
+    storageBucket: "pokemon-quiz-7a302.appspot.com",
+    messagingSenderId: "177197423282",
+    appId: "1:177197423282:web:e429accdb573ccb8d647ab"
 };
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
@@ -25,6 +30,28 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
       })
     } catch (error) {
         console.log('error creating user', error.message);
+    }
+  }
+
+  return userRef;
+}
+
+export const createResultSubCollection = async (userAuth, userResults) => {
+  if (!userAuth) return;
+
+  const userRef = firestore.doc(`users/${userAuth.uid}`).collection('results').doc();
+  const snapShot = await userRef.get();
+
+  if(!snapShot.exist) {
+    const createdAt = new Date();
+
+    try {
+      await userRef.set({
+        userResults,
+        createdAt
+      })
+    } catch (error) {
+        console.log('cannot save your result', error.message);
     }
   }
 

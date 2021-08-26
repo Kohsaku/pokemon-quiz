@@ -17,6 +17,8 @@ import {
 
 import { auth } from './api/firebase';
 
+import { createResultSubCollection } from './api/firebase';
+
 import './App.css';
 
 
@@ -46,7 +48,6 @@ class App extends React.Component {
     const shuffledQuestion = this.shuffleQuizQuestions(quizQuestions);
     const shuffledAnswerOptions = shuffledQuestion.map(question => this.shuffleArray(question.answers));
     const counter = this.state.counter;
-
 
     this.setState({
       question: shuffledQuestion[counter].question,
@@ -177,25 +178,49 @@ class App extends React.Component {
   }
 
   handleReset(event) {
+    const currentUser = auth.currentUser;
     const shuffledQuestion = this.shuffleQuizQuestions(quizQuestions);
     const shuffledAnswerOptions = shuffledQuestion.map(question => this.shuffleArray(question.answers));
+    const { log, counter } = this.state;
+    const yourResult = log.slice(0, counter+1);
 
-    this.setState({
-      counter: 0,
-      questionId: 1,
-      question: shuffledQuestion[0].question,
-      answerOptions: shuffledAnswerOptions[0],
-      answer: '',
-      answersCount: {},
-      result: 0,
-      correct: 0,
-      yourAnswer: [],
-      log: shuffledQuestion
-    });
+    if (!currentUser) {
+      this.setState({
+        counter: 0,
+        questionId: 1,
+        question: shuffledQuestion[0].question,
+        answerOptions: shuffledAnswerOptions[0],
+        answer: '',
+        answersCount: {},
+        result: 0,
+        correct: 0,
+        yourAnswer: [],
+        log: shuffledQuestion
+      });
+      this.props.history.push('/');
 
-    this.props.history.push('/');
+      console.log(shuffledQuestion);
 
-    console.log(shuffledQuestion);
+    } else {
+      createResultSubCollection(currentUser, yourResult);
+
+      this.setState({
+        counter: 0,
+        questionId: 1,
+        question: shuffledQuestion[0].question,
+        answerOptions: shuffledAnswerOptions[0],
+        answer: '',
+        answersCount: {},
+        result: 0,
+        correct: 0,
+        yourAnswer: [],
+        log: shuffledQuestion
+      });
+      this.props.history.push('/');
+
+      console.log(shuffledQuestion);
+    }
+
     event.preventDefault();
   }
 
