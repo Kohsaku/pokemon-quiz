@@ -8,6 +8,7 @@ import Header from './components/Header';
 import LoginPage from './components/LoginPage';
 import HistoryPage from './components/HistoryPage';
 import SignupPage from './components/SignupPage';
+import MenuSidebar from './components/MenuSidebar';
 
 import {
   Switch,
@@ -36,11 +37,13 @@ class App extends React.Component {
       correct: 0,
       yourAnswer: [],
       log:[],
-      numberOfQuestion: 3
-    }
+      numberOfQuestion: 3,
+      sidebaOpen: true
+    };
     this.handleNumberChange = this.handleNumberChange.bind(this);
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
     this.handleReset = this.handleReset.bind(this);
+    this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
   }
 
   componentDidMount() {
@@ -230,10 +233,18 @@ class App extends React.Component {
     })
   }
 
+  onSetSidebarOpen(open) {
+    this.setState({ sidebarOpen: open })
+  }
+
   render() {
     return (
         <div className="App">
           <Header handleSignOut={this.handleSignOut} />
+          <MenuSidebar
+            open={this.state.sidebarOpen} 
+            onSetOpen={this.onSetSidebarOpen} 
+          />
           <Switch>
             <Route exact path="/">
               <TopPage numbers={[3, 5, 6]} onChange={this.handleNumberChange} />
