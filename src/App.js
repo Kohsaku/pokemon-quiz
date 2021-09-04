@@ -38,12 +38,12 @@ class App extends React.Component {
       yourAnswer: [],
       log:[],
       numberOfQuestion: 3,
-      sidebaOpen: true
+      sidebar: false
     };
     this.handleNumberChange = this.handleNumberChange.bind(this);
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
     this.handleReset = this.handleReset.bind(this);
-    this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
+    this.handleSidebar = this.handleSidebar.bind(this);
   }
 
   componentDidMount() {
@@ -233,18 +233,22 @@ class App extends React.Component {
     })
   }
 
-  onSetSidebarOpen(open) {
-    this.setState({ sidebarOpen: open })
+  handleSidebar() {
+    const sidebar = this.state.sidebar;
+    this.setState({ sidebar: !sidebar});
   }
 
   render() {
+    const sidebar = this.state.sidebar;
     return (
         <div className="App">
-          <Header handleSignOut={this.handleSignOut} />
-          <MenuSidebar
-            open={this.state.sidebarOpen} 
-            onSetOpen={this.onSetSidebarOpen} 
-          />
+          <Header handleSignOut={this.handleSignOut} handleSidebar={this.handleSidebar} />
+          {sidebar ? 
+            <MenuSidebar 
+              sidebar={sidebar} 
+              handleSidebar={this.handleSidebar}
+            /> : null
+          }
           <Switch>
             <Route exact path="/">
               <TopPage numbers={[3, 5, 6]} onChange={this.handleNumberChange} />
