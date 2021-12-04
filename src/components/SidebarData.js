@@ -1,28 +1,27 @@
-import React from 'react';
-import HomeIcon from '@material-ui/icons/Home';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
+import React from "react";
+import HomeIcon from "@material-ui/icons/Home";
+import MenuBookIcon from "@material-ui/icons/MenuBook";
+import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople";
 
 const SidebarData = [
   {
-    title: 'Home',
-    path: '/',
+    title: "　ホーム",
+    path: "/",
     icon: <HomeIcon />,
-    className: 'sidebar-text'
+    className: "sidebar-text",
   },
   {
-    title: 'history',
-    path: '/history',
+    title: "　記録",
+    path: "/history",
     icon: <MenuBookIcon />,
-    className: 'sidebar-text'
+    className: "sidebar-text",
   },
   {
-    title: 'about us',
-    path: '/',
+    title: "　アバウトアス",
+    path: "/",
     icon: <EmojiPeopleIcon />,
-    className: 'sidebar-text'
+    className: "sidebar-text",
   },
-
 ];
 
 export default SidebarData;

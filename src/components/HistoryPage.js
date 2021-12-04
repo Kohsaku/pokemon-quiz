@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { firebase, auth, firestore } from "../api/firebase";
+import { auth, firestore } from "../api/firebase";
 import ResultCard from "./ResultCard";
 import Button from "@material-ui/core/Button";
 
@@ -23,7 +23,6 @@ const HistoryPage = () => {
       const historyDoc = await historyRef.get();
       setDateData(historyDoc.docs.map((doc) => doc.data().createdAt));
       setResultData(historyDoc.docs.map((doc) => doc.data()));
-      console.log(resultData);
     }
   }, []);
 
