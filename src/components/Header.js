@@ -1,31 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { auth } from "../api/firebase";
 import MenuIcon from "@material-ui/icons/Menu";
-import { IconButton } from "@material-ui/core";
+import { makeStyles, IconButton } from "@material-ui/core";
 
 import "./Header.css";
 
 const Header = (props) => {
-  const [isLogin, setIsLogin] = useState(false);
+  const useStyle = makeStyles((theme) => ({
+    MenuIcon: {
+      color: "#fbc531",
+    },
+    Link: {
+      color: "#fbc531",
+    },
+  }));
 
-  useEffect(async () => {
-    const currentUser = auth.currentUser;
-    if (currentUser) {
-      setIsLogin(true);
-    } else {
-      setIsLogin(false);
-    }
-  }, [isLogin]);
-
+  const classes = useStyle();
   return (
     <div className="App-header">
-      <IconButton onClick={props.handleSidebar}>
-        <MenuIcon color="primary" />
+      <IconButton className={classes.MenuIcon} onClick={props.handleSidebar}>
+        <MenuIcon />
       </IconButton>
       <h2>Pokemon Quiz</h2>
-      {isLogin ? (
-        <Link to="/login" onClick={setIsLogin(false)}>
+      {props.isLogin ? (
+        <Link
+          className={classes.Link}
+          to="/login"
+          onClick={props.handleSignOut}
+        >
           Logout
         </Link>
       ) : (

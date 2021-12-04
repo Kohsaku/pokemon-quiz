@@ -12,7 +12,11 @@ import MenuSidebar from "./components/MenuSidebar";
 
 import { Switch, Route, withRouter } from "react-router-dom";
 
-import { auth, createResultSubCollection } from "./api/firebase";
+import {
+  auth,
+  createResultSubCollection,
+  signInWithGoogle,
+} from "./api/firebase";
 
 import "./App.css";
 
@@ -30,15 +34,29 @@ class App extends React.Component {
       correct: 0,
       yourAnswer: [],
       log: [],
-      numberOfQuestion: 3,
+      numberOfQuestion: 5,
       sidebar: false,
       showResult: false,
+      isLogin: false,
     };
     this.handleQuizClick = this.handleQuizClick.bind(this);
     this.handleNumberChange = this.handleNumberChange.bind(this);
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.handleSidebar = this.handleSidebar.bind(this);
+    this.handleIsLogin = this.handleIsLogin.bind(this);
+    this.handleGoogleSignin = this.handleGoogleSignin.bind(this);
+    this.handleSignOut = this.handleSignOut.bind(this);
+  }
+
+  componentDidMount() {
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+      this.setState({ isLogin: false });
+    } else {
+      this.setState({ isLogin: true });
+    }
+    console.log(currentUser);
   }
 
   // 問題をシャッフルする
@@ -90,7 +108,8 @@ class App extends React.Component {
 
   // 問題数をstateにセットする
   handleNumberChange(event) {
-    this.setState({ numberOfQuestion: event.currentTarget.value });
+    this.setState({ numberOfQuestion: event.target.value });
+    console.log(this.state.numberOfQuestion);
   }
 
   // 選択された回答をsetUserAnswerにセットし、指定の問題数まで満たなければ次のquestionへ、満たされればsetResultへ
@@ -217,9 +236,19 @@ class App extends React.Component {
     event.preventDefault();
   }
 
+  handleIsLogin() {
+    this.setState({ isLogin: true });
+  }
+
+  async handleGoogleSignin() {
+    await signInWithGoogle()
+      .then(this.setState({ isLogin: true }))
+      .then(this.props.history.push("/"));
+  }
+
   handleSignOut() {
     auth.signOut().then(() => {
-      console.log("sign out successfuly");
+      this.setState({ isLogin: false });
     });
   }
 
@@ -229,10 +258,11 @@ class App extends React.Component {
   }
 
   render() {
-    const sidebar = this.state.sidebar;
+    const { sidebar, isLogin, numberOfQuestion } = this.state;
     return (
       <div className="App">
         <Header
+          isLogin={isLogin}
           handleSignOut={this.handleSignOut}
           handleSidebar={this.handleSidebar}
         />
@@ -242,9 +272,10 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/">
             <TopPage
-              numbers={[3, 5, 6]}
+              numbers={[5, 10, 15]}
               onChange={this.handleNumberChange}
               onClick={this.handleQuizClick}
+              numberOfQuestion={numberOfQuestion}
             />
           </Route>
           <Route path="/quiz">
@@ -253,10 +284,13 @@ class App extends React.Component {
             </div>
           </Route>
           <Route path="/login">
-            <LoginPage />
+            <LoginPage
+              emailLogin={this.handleIsLogin}
+              googleSignin={this.handleGoogleSignin}
+            />
           </Route>
           <Route path="/signup">
-            <SignupPage />
+            <SignupPage onClick={this.handleIsLogin} />
           </Route>
           <Route path="/history">
             <HistoryPage />

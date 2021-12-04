@@ -1,18 +1,30 @@
 import React, { useState } from "react";
 import { auth, createUserProfileDocument } from "../api/firebase";
-import CustomButton from "./customButton";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 
 import "./SignupPage.css";
+import { makeStyles } from "@material-ui/core";
 
-const SignupPage = () => {
+const useStyles = makeStyles((theme) => ({
+  Container: {
+    marginTop: theme.spacing(5),
+  },
+  Button: {
+    marginTop: theme.spacing(2),
+  },
+  Grid: {
+    marginTop: theme.spacing(2),
+  },
+}));
+
+const SignupPage = (props) => {
+  const classes = useStyles();
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -67,11 +79,7 @@ const SignupPage = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <Container
-          className="Signup-FormContainer"
-          component="main"
-          maxWidth="xs"
-        >
+        <Container className={classes.Container} component="main" maxWidth="xs">
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -126,15 +134,16 @@ const SignupPage = () => {
             </Grid>
           </Grid>
           <Button
-            className="Signup-FormButton"
+            className={classes.Button}
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            onClick={props.onClick}
           >
             Sign Up
           </Button>
-          <Grid container justifyContent="flex-end">
+          <Grid className={classes.Grid} container justifyContent="flex-end">
             <Grid item>
               <Link to="/login">Already have an account? Sign in</Link>
             </Grid>

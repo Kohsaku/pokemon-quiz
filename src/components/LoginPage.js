@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { auth, signInWithGoogle } from "../api/firebase";
+import { auth } from "../api/firebase";
 import { useHistory } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
@@ -12,8 +12,6 @@ import { makeStyles } from "@material-ui/core";
 
 import { Link } from "react-router-dom";
 
-import "./LoginPage.css";
-
 function getModalStyle() {
   const top = 50;
   const left = 50;
@@ -25,6 +23,18 @@ function getModalStyle() {
 }
 
 const useStyles = makeStyles((theme) => ({
+  Container: {
+    marginTop: theme.spacing(10),
+  },
+  Button: {
+    marginTop: theme.spacing(2),
+  },
+  Grid: {
+    marginTop: theme.spacing(2),
+  },
+  ForgotPassword: {
+    cursor: "pointer",
+  },
   modal: {
     outline: "none",
     position: "absolute",
@@ -36,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LoginPage = () => {
+const LoginPage = (props) => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -64,7 +74,6 @@ const LoginPage = () => {
       await auth.signInWithEmailAndPassword(email, password);
       setEmail("");
       setPassword("");
-
       history.push("/");
     } catch (error) {
       console.log(error);
@@ -83,7 +92,7 @@ const LoginPage = () => {
 
   return (
     <div className="LoginPage">
-      <Container className="FormContainer" component="main" maxWidth="sm">
+      <Container className={classes.Container} component="main" maxWidth="sm">
         <form onSubmit={handleSubmit}>
           <TextField
             margin="normal"
@@ -109,21 +118,26 @@ const LoginPage = () => {
             value={password}
             required
           />
-          <span className="Login_FormButton">
-            <Button type="submit" fullWidth variant="contained">
-              Sign In
-            </Button>
-          </span>
           <Button
+            className={classes.Button}
             type="submit"
             fullWidth
             variant="contained"
-            onClick={signInWithGoogle}
+            onClick={props.emailLogin}
+          >
+            Sign In
+          </Button>
+          <Button
+            className={classes.Button}
+            type="submit"
+            fullWidth
+            variant="contained"
+            onClick={props.googleSignin}
           >
             Google Sign In
           </Button>
-          <Grid container className="FormGrid">
-            <Grid item xs>
+          <Grid className={classes.Grid} container>
+            <Grid className={classes.ForgotPassword} item xs>
               <span onClick={() => setOpenModal(true)}>Forgot password?</span>
             </Grid>
             <Grid item>
