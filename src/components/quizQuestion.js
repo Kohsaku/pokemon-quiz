@@ -131,6 +131,94 @@ var quizQuestions = [
     ],
     correct: "イエッサン♂",
   },
+  {
+    question: "次のうち「ヒヒダルマ（ガラルのすがた）」が覚えるわざはどれ？",
+    answers: [
+      {
+        type: "1",
+        content: "もろはのずつき",
+      },
+      {
+        type: "2",
+        content: "ねっぷう",
+      },
+      {
+        type: "3",
+        content: "かみくだく",
+      },
+      {
+        type: "4",
+        content: "ちきゅうなげ",
+      },
+    ],
+    correct: "ねっぷう",
+  },
+  {
+    question: "次のうち「ゴリランダー」のタイプはどれ？",
+    answers: [
+      {
+        type: "1",
+        content: "くさ",
+      },
+      {
+        type: "2",
+        content: "じめん",
+      },
+      {
+        type: "3",
+        content: "ほのお",
+      },
+      {
+        type: "4",
+        content: "いわ",
+      },
+    ],
+    correct: "くさ",
+  },
+  {
+    question: "次のうち「シロデスナ」のとくせいはどれ？",
+    answers: [
+      {
+        type: "1",
+        content: "ありじごく",
+      },
+      {
+        type: "2",
+        content: "ハードロック",
+      },
+      {
+        type: "3",
+        content: "すながくれ",
+      },
+      {
+        type: "4",
+        content: "すなのちから",
+      },
+    ],
+    correct: "すながくれ",
+  },
+  {
+    question: "次のうち「ブリムオン」のタイプはどれ？",
+    answers: [
+      {
+        type: "1",
+        content: "エスパー",
+      },
+      {
+        type: "2",
+        content: "ゴースト・フェアリー",
+      },
+      {
+        type: "3",
+        content: "エスパー・フェアリー",
+      },
+      {
+        type: "4",
+        content: "くさ・フェアリー",
+      },
+    ],
+    correct: "エスパー・フェアリー",
+  },
 ];
 
 export default quizQuestions;

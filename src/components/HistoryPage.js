@@ -3,8 +3,6 @@ import { auth, firestore } from "../api/firebase";
 import ResultCard from "./ResultCard";
 import Button from "@material-ui/core/Button";
 
-import "./HistoryPage.css";
-
 const HistoryPage = () => {
   const [dateData, setDateData] = useState([]);
   const [resultData, setResultData] = useState([]);
